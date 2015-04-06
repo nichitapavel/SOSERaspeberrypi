@@ -123,8 +123,7 @@ void MicroWave::on_timeTenMin_clicked()
  */
 void MicroWave::on_startButton_clicked()
 {
-    //updateTimeForQTimer();
-    //delete timer;
+    delete timer;
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateDisplayTime()));
     timer->start(1000);
