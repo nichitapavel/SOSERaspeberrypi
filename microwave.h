@@ -68,6 +68,10 @@ private slots:
 
     void enableButtonsFalse();
 
+    void turnOnLED();
+
+    void turnOffLED();
+
 private:
     Ui::MicroWave *ui;
     QTimer* timer;

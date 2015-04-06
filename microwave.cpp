@@ -161,6 +161,7 @@ void MicroWave::on_stopButton_clicked()
         setLCDs();
         enableStartStopButton();
         enableButtonsTrue();
+        turnOffLED();
         pause = false;
     }
 }
@@ -181,6 +182,7 @@ void MicroWave::stopTimer()
         enableStartStopButton();
         timerNumber2++;
         enableButtonsTrue();
+        turnOffLED();
     }
 }
 
@@ -190,7 +192,19 @@ void MicroWave::updateDisplayTime()
 {
     totalTime -= 1;
     updateTimeForQTimer();
+    turnOnLED();
+    if (power != 1000)
+        QTimer::singleShot(power, this, SLOT(turnOffLED()));
     setLCDTime();
+}
+
+//Encender led
+void MicroWave::turnOnLED(){
+    ui->textEdit->setText("ON");
+}
+
+void MicroWave::turnOffLED(){
+    ui->textEdit->setText("OFF");
 }
 
 //Poner los valores de las variables de segundos, unidades de minutos, decenas de minutos
