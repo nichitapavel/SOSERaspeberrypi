@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MicroWave</class>
+ <widget class="QWidget" name="MicroWave">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>320</width>
+    <height>240</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="modeTea">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>8</y>
+     <width>70</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>COFFEE</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="modeChicken">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>46</y>
+     <width>70</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CHICKEN</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="modeSoup">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>84</y>
+     <width>70</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SOUP</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="modePuree">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>122</y>
+     <width>70</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PUREE</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="stopButton">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>25</x>
+     <y>170</y>
+     <width>120</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>STOP</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="startButton">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>175</x>
+     <y>170</y>
+     <width>120</width>
+     <height>60</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>START</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="timeTenMin">
+   <property name="geometry">
+    <rect>
+     <x>95</x>
+     <y>65</y>
+     <width>60</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>10 MIN</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="timeSec">
+   <property name="geometry">
+    <rect>
+     <x>245</x>
+     <y>65</y>
+     <width>60</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>10 SEC</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="timeMin">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>65</y>
+     <width>60</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>1 MIN</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="power450">
+   <property name="geometry">
+    <rect>
+     <x>92</x>
+     <y>115</y>
+     <width>45</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>450W</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="power600">
+   <property name="geometry">
+    <rect>
+     <x>149</x>
+     <y>115</y>
+     <width>45</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>600W</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="power800">
+   <property name="geometry">
+    <rect>
+     <x>206</x>
+     <y>115</y>
+     <width>45</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>800W</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="power1000">
+   <property name="geometry">
+    <rect>
+     <x>263</x>
+     <y>115</y>
+     <width>45</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>1000W</string>
+   </property>
+  </widget>
+  <widget class="QLCDNumber" name="lcdPower">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>10</y>
+     <width>75</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="digitCount">
+    <number>4</number>
+   </property>
+  </widget>
+  <widget class="QLCDNumber" name="lcdTime">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>10</y>
+     <width>115</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="digitCount">
+    <number>5</number>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>modeChicken</sender>
+   <signal>clicked()</signal>
+   <receiver>lcdPower</receiver>
+   <slot>update()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>39</x>
+     <y>60</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>137</x>
+     <y>29</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
