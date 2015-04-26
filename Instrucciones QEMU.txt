@@ -1,0 +1,68 @@
+﻿Estos pasos son para la versión de 64bit
+Que tienes que descargar?
+1. Descargar el "Entorno Qemu x86_64 completo"
+2. Descarga "poky-eglibc-x86_64-i586-toolchain-qte-1.4.4.sh"
+3. Abrir una terminal y instalar QT Creator con "sudo apt-get install qtcreator" (en caso de Ubuntu)
+
+********************************************************
+Que hacer con "Entorno Qemu x86_64 completo"?
+1. Es bastante probable que tengas que instalar alguno de los siguientes paquetes: git, c++, gawk, chrpath, makeinfo(apt-get install texinfo), libsdl1.2debian.
+Compruebalo antes de hacer los siguientes paso para evitar fallos.
+
+2. Descomprimir en "/home/usuario"
+
+3. Dentro de lo que has descomprimido ir a "/qemu-x86/poky/build/conf", aquí tiene que haber un "bblayers.conf" y "sanity_info"
+
+4. Este paso es importante, lee con cuidado.
+Versión corta: modifica los archivos "bblayers.conf" y "sanity_info" para que las rutas coincidan con tus rutas
+Versión larga:
+En el archivo "bblayers.conf", en "BBLAYERS_NON_REMOVABLE" y en "#added by bitbake BBLAYERS .... " poner tu ruta actual, por ejemplo en lugar de "/home/jonay/yocto/poky/meta \" poner "/home/usuario/qemu-x86/poky/meta \" y guardalo.
+En el archivo "sanity_info" modifica el "TMPDIR" (o todo lo que hay allí) para que coincida con nuestras rutas
+
+5. Ir a "/home/usuario/qemu-x86/poky/build/tmp" y modificar la ruta que está en el fichero "saved_tmpdir" para que coincida con nuestra ruta
+
+6. Abre una terminal
+
+7. Entra en el directorio "poky" ("/home/usuario/qemu-x86/poky") y hacer "source oe-init-build-env"
+
+8. Ahora tienes que estar en la carpeta "build" (tiene que ser automatico), ejecuta el comando "hob".
+
+9. Debería funcionar, haz "runqemu qemux86 ./tmp/deploy/images/qt4e-image-qemux86.rootfs.ext3" y dejala encendida
+
+********************************************************
+Que hacer con "poky-eglibc-x86_64-i586-toolchain-qte-1.4.4.sh"?
+1. Abre un nueva terminal
+
+2. Crear una carpeta "toolchain" (el nombre da igual en realidad) en "/home/usuario"
+
+3. Haz ejectuable el "poky-eglibc-x86_64-i586-toolchain-qte-1.4.4.sh" con "chmod +x" y ejecutalo, te va a pedir una ruta, pon la ruta del directorio que acabas de crear "/home/usuario/toolchain".
+
+4. Acabado el paso anterior ejecuta "source /home/usuario/toolchain/enviroment-setup-i586-poky-linux"
+
+5. En la misma terminal ejecutamos "qtcreator"
+
+********************************************************
+Pasos para configurar el QT Creator (si no queda claro mira el pdf de la practica 5)
+1. Añadimos un dispositivo objetivo en "Devices" ("Tools->Options->Devices"). Pulsamos "Add" y elegimos "Generic Linux Device", indicamos un nombre cualquiera ("Raspberrypi Qemu"), la IP es "192.168.7.2", usuario "root", contraseña vacia.
+
+2. Añadimos las herramientas de QT en "Tools->Options->Build & Run"
+  "Qt Versions" - "/home/usuario/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/qmake2"
+  "Compilers" Add->GCC   - "/home/usuario/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/i586-poky-linux/i586-poky-linux-g++"
+  "Debugger"    - "/home/usuario/toolchain/sysroots/x86_64-pokysdk-linux/usr/bin/i586-poky-linux/i586-poky-linux-gdb"
+  
+3. Añadimos el kit en "Kits" (misma vista "Tools->Options->Build & Run")
+
+4. En Qt Creator ir a "Projects" (barra vertical de la izquierda)-> dispozitivo añadido -> Run -> Arguments, poner aqúi "-qws"
+
+5. Hacer el hello world y ejecutar, se supone que funcionará.
+
+********************************************************
+Que pasa si te vas a dormir y quieres al siguiente día seguir?
+1. Abres una terminal
+2. Vas a "/home/usuario/qemu-x86/poky"
+3. Ejecutas "source oe-init-build-env"
+4. Ejecutas "runqemu qemux86 ./tmp/deploy/images/qt...." y la dejas encendida
+
+5. Abres otra terminal
+6. Ejecutas "source /home/usuario/toolchain/enviroment-setup-i586-poky-linux"
+7. Ejecutas "qtcreator"
