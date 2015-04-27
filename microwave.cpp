@@ -6,19 +6,21 @@ MicroWave::MicroWave(QWidget *parent) :
     ui(new Ui::MicroWave)
 {
     ui->setupUi(this);
+    ui->lcdTime->display(0);
+
+    timer = new QTimer(this);
+    timerLED = new QTimer(this);
+    timeLCD = QTime();
+    timerStopLimit = QTime();
+
     sec = 0;
     minUnt = 0;
     minDec = 0;
     totalMin = 0;
     totalTime = 0;
     power = 0;
-    ui->lcdTime->display(0);
-    time = QTime();
-    timer = new QTimer(this);
-    timerLED = new QTimer(this);
-    timerNumber = 0;
-    timerNumber2 = 0;
-    pause = false;
+
+    isStartStopPaired = true;
 }
 
 MicroWave::~MicroWave()
@@ -128,41 +130,32 @@ void MicroWave::on_startButton_clicked()
     connect(timer, SIGNAL(timeout()), this, SLOT(updateDisplayTime()));
     timer->start(1000);
     QTimer::singleShot(totalTime * 1000, this, SLOT(stopTimer()));
-    timerNumber++;
-    pause = false;
+    timerStopLimit = QTime::currentTime();
+    timerStopLimit = timerStopLimit.addSecs(totalTime);
+    isStartStopPaired = false;
     enableStartStopButton(); //desactivar boton Start
     enableButtonsFalse(); //desactivar los botones Menu, Potencia, Tiempo
+    turnOnLED(); //Activar LED
 }
 
 void MicroWave::on_stopButton_clicked()
 {
-    if (!pause && !timer->isActive()){
-        minDec = minUnt = sec = 0;
-        power = 0;
-        updateTimeForQTime();
-        setLCDs();
-        enableStartStopButton();
-        enableButtonsTrue();
-    }
-    else if (!pause) // pause = false, si no esta pausada
-    {
+    // STOP1, si se esta ejecutando
+    if (timer->isActive()){ //timer->isActive() = true
         timer->stop();
         enableStartStopButton(); //Activar botones de Start
         enableButtonsTrue(); //Activar los botones Menu, Potencia, Tiempo
-        timerNumber2++;
-        pause = true;
+        turnOffLED();
+        isStartStopPaired = true;
     }
-    else
-    {
-        timer->stop();
+    //STOP2, Estado por defecto, limpia los datos
+    else { //timer->isActive() = false
         minDec = minUnt = sec = 0;
         power = 0;
         updateTimeForQTime();
         setLCDs();
         enableStartStopButton();
         enableButtonsTrue();
-        turnOffLED();
-        pause = false;
     }
 }
 
@@ -173,14 +166,14 @@ void MicroWave::on_stopButton_clicked()
 //parar el timer si esta activo
 void MicroWave::stopTimer()
 {
-    if (timerNumber2 == (timerNumber-1) && !pause) //pause = true, el timer esta activo
+    if (timerStopLimit <= QTime::currentTime() && !isStartStopPaired) //isStartStopPaired = false
     {
         timer->stop();
         minDec = minUnt = sec = 0;
         power = 0;
         setLCDs();
         enableStartStopButton();
-        timerNumber2++;
+        isStartStopPaired = true;
         enableButtonsTrue();
         turnOffLED();
     }
@@ -193,14 +186,14 @@ void MicroWave::updateDisplayTime()
     totalTime -= 1;
     updateTimeForQTimer();
     turnOnLED();
-    if (power != 1000)
-        QTimer::singleShot(power, this, SLOT(turnOffLED()));
     setLCDTime();
 }
 
-//Encender led
+//Encender led y setear el temporizador para apagarlo
 void MicroWave::turnOnLED(){
     ui->textEdit->setText("ON");
+    if (power != 1000)
+        QTimer::singleShot(power, this, SLOT(turnOffLED()));
 }
 
 void MicroWave::turnOffLED(){
@@ -227,7 +220,7 @@ void MicroWave::updateTimeForQTime()
 {
     totalMin = minDec + minUnt;
     totalTime = totalMin * 60 + sec;
-    time.setHMS(0, totalMin, sec); //Se pone la hora en 0:minutos:segundos:0 (hh:mm:ss:ms)
+    timeLCD.setHMS(0, totalMin, sec); //Se pone la hora en 0:minutos:segundos:0 (hh:mm:ss:ms)
 }
 
 //Comprobar las unidades de tiempo
@@ -253,7 +246,7 @@ void MicroWave::set_LCDPower()
 void MicroWave::setLCDTime()
 {
     if (totalTime != 0) //si tiempo en segundos es mayor a 0 poner el tiempo
-        ui->lcdTime->display(time.toString("mm:ss"));
+        ui->lcdTime->display(timeLCD.toString("mm:ss"));
     else
         ui->lcdTime->display(0);
 

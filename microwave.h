@@ -48,7 +48,7 @@ private slots:
     /********/
     void stopTimer();
 
-    void checkTime(int& time, int mod);
+    void checkTime(int& timeLCD, int mod);
 
     void setLCDTime();
 
@@ -76,16 +76,15 @@ private:
     Ui::MicroWave *ui;
     QTimer* timer;
     QTimer* timerLED;
-    QTime time;
+    QTime timeLCD;
+    QTime timerStopLimit;
     int sec;
     int minUnt;
     int minDec;
     int totalMin;
     int totalTime;
     int power;
-    int timerNumber;
-    int timerNumber2;
-    bool pause;
+    bool isStartStopPaired;
 };
 
 #endif // MICROWAVE_H
