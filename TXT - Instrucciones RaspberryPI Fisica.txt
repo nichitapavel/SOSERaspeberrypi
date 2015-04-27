@@ -1,33 +1,55 @@
+Instruciones para 64bits, en caso de 32bits utilizar "toolchain desde i686_32 a Arm Raspberrypi" para 32bit (poky-eglibc-i686-arm-toolchain-qte-1.4.4.sh).
 ********************************************************
-COMO TRABAJAR CON UNA RASPBERRY PI FISICO
-Tienes que bajarte "Imagen Raspberrypi qt integrado" y "toolchain desde x86_64 a Arm Raspberrypi" si tienes ordenador de 64bit o "toolchain desde i686_32 a Arm Raspberrypi" para ordenador de 32bit.
-Tienes que copiar "Imagen Raspberrypi qt integrado" en una microsd y colocarlo en la Raspberry Pi y encenderla, el dispositivo tiene que estar conectado a la red.
+1. Descargar del campus "toolchain desde x86_64 a Arm Raspberrypi".
 
-1. Abre un nueva terminal
+2. Crear una carpeta "toolchain_qte" en "/home/usuario/"
 
-2. Crear una carpeta "raspberrypi" (el nombre da igual en realidad) en "/home/usuario"
+3. Ejecutar "chmod +x poky-eglibc-x86_64-arm-toolchain-qte-1.4.4.sh"
 
-3. Haz ejectuable el "poky-eglibc-x86_64-arm-toolchain-qte-1.4.4.sh" con "chmod +x" y ejecutalo, te va a pedir una ruta, pon la ruta del directorio que acabas de crear "/home/usuario/raspberrypi".
+4. Ejecutar "./poky-eglibc-x86_64-arm-toolchain-qte-1.4.4.sh", poner como ruta "/home/usuario/toolchain_qte"
 
-4. Acabado el paso anterior ejecuta "source /home/usuario/raspberrypi/environment-setup-armv6-vfp-poky-linux-gnueabi"
+5. Cambiar a posición por defecto en terminal "cd"
 
-5. En la misma terminal ejecutamos "qtcreator"
+6. Ejecutar "source /home/pavel/toolchain_qte/environment-setup-armv6-vfp-poky-linux-gnueabi"
 
-********************************************************
+7. Ejecutar "qtcreator"
 
-Pasos para configurar el QT Creator (si no queda claro mira el pdf de la practica 5)
-1. Añadimos un dispositivo objetivo en "Devices" ("Tools->Options->Devices"). Pulsamos "Add" y elegimos "Generic Linux Device", indicamos un nombre cualquiera ("Raspberrypi"), la IP es la ip fisica del dispositivo, usuario "root", contraseña vacia.
+8. En QTCreator ir a "Tools->Options...->Devices"
 
-2. Añadimos las herramientas de QT en "Tools->Options->Build & Run"
-  "Qt Versions" - "/home/usuario/raspberrypi/sysroots/x86_64-pokysdk-linux/usr/bin/qmake"
-  "Compilers" Add->GCC   - "/home/pavel/raspberrypi/sysroots/x86_64-pokysdk-linux/usr/bin/armv6-vfp-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++"
-  "Debugger"    - "/home/pavel/raspberrypi/sysroots/x86_64-pokysdk-linux/usr/bin/armv6-vfp-poky-linux-gnueabi/arm-poky-linux-gnueabi-gdb"
-  
-3. Añadimos el kit en "Kits" (misma vista "Tools->Options->Build & Run")
+9. Pulsamos "Add..." (bara lateral derecha), elegimos "Generic Linux Device"
 
-4. En Qt Creator ir a "Projects" (barra vertical de la izquierda) "Add Kit" -> Raspberry Pi fisico.
+10. Rellenamos los datos:
+	The name to identify this configuration:    RasspberryPI Fisico
+	The deviceś host name or IP address:        192.168.1.34 (***Eso cambia)
+	The user name to log into the device:       root
+	The authentication type:                    Password
+	The user's password:                        (***vacio, tal como esta)
+	The file containing the user's private key: (***tal como esta)
+ y "Next >" y "Finish"
 
-5. En la misma sección-> dispozitivo añadido -> Run -> Arguments, poner aqúi "-qws"
+11. Probar la conexión al dispositivo mediante "Test"(bara lateral derecha), es posible que tengas que aumentar el "Timeout:", de 10segundos a 30segundos debería bastar.
 
-6. Hacer el hello world y ejecutar, se supone que funcionará.
+12. Añadimos más cosas en "Tools" -> "Options..." -> "Build & Run"
+	Pestaña "Qt Versions" -> "Add..." -> "/home/usuario/toolchain_qte/sysroots/x86_64-pokysdk-linux/usr/bin/qmake2"
+		"Version name:" -> RaspberryPI Fisico
+	Pestaña "Compilers" -> "Add" -> "GCC" -> "/home/usuario/toolchain_qte/sysroots/x86_64-pokysdk-linux/usr/bin/armv6-vfp-poky-linux-gnueabi/arm-poky-linux-gnueabi-g++"
+		"Name:" -> RaspberryPI Fisico
+	Pestaña "Debuggers" -> "Add" -> "/home/usuario/toolchain_qte/sysroots/x86_64-pokysdk-linux/usr/bin/armv6-vfp-poky-linux-gnueabi/arm-poky-linux-gnueabi-gdb"
+		"Name:" -> RaspberryPI Fisico
+
+	Pestaña "Kits" -> "Add"
+		Name: "RaspberryPI Fisico"
+		Device type: "Generic Linux Device"
+		Device : "RaspberryPI Fisico" (Añadido en paso 09 y 10)
+		Systroot : "/home/usuario/toolchain_qte/sysroots/x86_64-pokysdk-linux"
+		Compiler : "RaspberryPI Fisico" (Añadido justo antes)
+		Debugger : "RaspberryPI Fisico" (Añadido justo antes)
+		Qt version: "RaspberryPI Fisico" (Añadido justo antes)
+
+13. Abrir/crear un poryecto e ir a "Projects" -> "Build & Run" -> "Add Kit" -> "RaspberryPI Fisico"
+
+14. En "Projects" -> "Build & Run" -> "RaspberryPI Fisico" -> "Run" -> "Arguments" poner "-qws"
+
+15. Compilar y hacer un deploy a dispositivo fisico.
+
 
