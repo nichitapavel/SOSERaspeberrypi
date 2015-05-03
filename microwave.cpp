@@ -20,6 +20,11 @@ MicroWave::MicroWave(QWidget *parent) :
     totalTime = 0;
     power = 0;
 
+    //Variable de emparejamiento boton Start y Stop
+    //Si Start ha sido pulsado valor FALSE, no están emparejados
+    //Si Start ha sido pulsado y Stop también valor TRUE, están emparejados
+    //El valor siempre cambio si se pulsa Start
+    //Si se pulsa Stop depende de unas condiciones
     isStartStopPaired = true;
 }
 
