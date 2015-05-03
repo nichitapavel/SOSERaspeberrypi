@@ -48,7 +48,7 @@ Instruciones para 64bits, en caso de 32bits utilizar "toolchain desde i686_32 a 
 
 13. Abrir/crear un poryecto e ir a "Projects" -> "Build & Run" -> "Add Kit" -> "RaspberryPI Fisico"
 
-14. En "Projects" -> "Build & Run" -> "RaspberryPI Fisico" -> "Run" -> "Arguments" poner "-qws"
+14. En "Projects" -> "Build & Run" -> "RaspberryPI Fisico" -> "Run" -> "Arguments" poner "-display LinuxFb:/dev/fb1 -qws"
 
 15. Compilar y hacer un deploy a dispositivo fisico.
 
