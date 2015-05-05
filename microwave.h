@@ -56,7 +56,7 @@ private slots:
 
     void updateTimeForQTimer();
 
-    void set_LCDPower();
+    void setLCDPower();
 
     void enableStartStopButton();
 
@@ -74,17 +74,18 @@ private slots:
 
 private:
     Ui::MicroWave *ui;
-    QTimer* timer;
-    QTimer* timerLED;
-    QTime timeLCD;
+    QTimer* timer; //timer del reloj
+    QTime timeLCD; //Objeto para representar el tiempo en el LCD
+    //Objeto de control del timer del reloj para apagarlo
+    //utilizado especialmente para evitar intercalado de lineas de tiempo
     QTime timerStopLimit;
-    int sec;
-    int minUnt;
-    int minDec;
-    int totalMin;
-    int totalTime;
-    int power;
-    bool isStartStopPaired;
+    int sec; //Unidades de segundos: 1 segundo
+    int minUnt; //Unidades de minutos: 1 minuto
+    int minDec; //Decenas de minutos: 10 minuto
+    int totalMin; //Total minutos: unidades minutos + decenas minutos
+    int totalTime; //Total de tiempo en segundos: unidades minutos * 60 + decenas minutos * 600 + unidades segundos
+    int power; //Valor de potencia del microondas
+    bool isStartStopPaired; //Variable de emparejamiento boton Start y Stop
 };
 
 #endif // MICROWAVE_H
