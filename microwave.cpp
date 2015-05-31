@@ -1,5 +1,6 @@
 #include "microwave.h"
 #include "ui_microwave.h"
+#include "GPIOClass.h"
 
 MicroWave::MicroWave(QWidget *parent) :
     QWidget(parent),
@@ -26,6 +27,15 @@ MicroWave::MicroWave(QWidget *parent) :
     //Si se pulsa Stop depende de unas condiciones
     //Se acciona al encender/apagar el timer de reloj
     isStartStopPaired = true;
+
+    //Iniccializar los pines de los Leds
+    this->gpio27 = new GPIOClass("27");
+    this->gpio22 = new GPIOClass("22");
+    gpio27->export_gpio();
+    gpio22->export_gpio();
+    gpio27->setdir_gpio("out");
+    gpio22->setdir_gpio("out");
+
 }
 
 MicroWave::~MicroWave()
@@ -203,6 +213,8 @@ void MicroWave::stopTimer()
 //Encender led y setear el temporizador para apagarlo
 void MicroWave::turnOnLED(){
     ui->textEdit->setText("ON");
+    gpio27->setval_gpio("1");
+    gpio22->setval_gpio("1");
     if (power != 1000)
         QTimer::singleShot(power, this, SLOT(turnOffLED()));
 }
@@ -210,6 +222,8 @@ void MicroWave::turnOnLED(){
 //Apagar led
 void MicroWave::turnOffLED(){
     ui->textEdit->setText("OFF");
+    gpio27->setval_gpio("0");
+    gpio22->setval_gpio("0");
 }
 
 //Actualizar cada segundo el LCD de tiempo

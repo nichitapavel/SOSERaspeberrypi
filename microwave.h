@@ -5,6 +5,7 @@
 #include <QDateTime>
 #include <QTimer>
 #include <QTime>
+#include "GPIOClass.h"
 
 namespace Ui {
 class MicroWave;
@@ -86,6 +87,8 @@ private:
     int totalTime; //Total de tiempo en segundos: unidades minutos * 60 + decenas minutos * 600 + unidades segundos
     int power; //Valor de potencia del microondas
     bool isStartStopPaired; //Variable de emparejamiento boton Start y Stop
+    GPIOClass *gpio27; //Led Verde
+    GPIOClass *gpio22; //Led Rojo
 };
 
 #endif // MICROWAVE_H
