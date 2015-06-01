@@ -35,7 +35,7 @@ MicroWave::MicroWave(QWidget *parent) :
     gpio22->export_gpio();
     gpio27->setdir_gpio("out");
     gpio22->setdir_gpio("out");
-
+    gpio27->setval_gpio("1");
 }
 
 MicroWave::~MicroWave()
@@ -213,7 +213,6 @@ void MicroWave::stopTimer()
 //Encender led y setear el temporizador para apagarlo
 void MicroWave::turnOnLED(){
     ui->textEdit->setText("ON");
-    gpio27->setval_gpio("1");
     gpio22->setval_gpio("1");
     if (power != 1000)
         QTimer::singleShot(power, this, SLOT(turnOffLED()));
@@ -222,7 +221,6 @@ void MicroWave::turnOnLED(){
 //Apagar led
 void MicroWave::turnOffLED(){
     ui->textEdit->setText("OFF");
-    gpio27->setval_gpio("0");
     gpio22->setval_gpio("0");
 }
 
