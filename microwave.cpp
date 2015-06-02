@@ -40,6 +40,7 @@ MicroWave::MicroWave(QWidget *parent) :
 
 MicroWave::~MicroWave()
 {
+    gpio27->setval_gpio("0");
     delete timer;
     delete ui;
 }
